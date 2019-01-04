@@ -1,0 +1,463 @@
+standard linux command syntax: command [option] <arguments>
+command    option        arguments
+  ls     -s(--size)       /home
+ls -s -l /home == ls -sl /home (multiple option)
+ls -l /home /etc (multiple argument)
+
+
+------------------------------------------------------------------------------【command help and shell】-----------------------------------------------------------
+(1)command --help or help command.
+(2)info command - read Info documents.
+(3)man - an interface to the on-line reference manuals.
+   man -f crontab - Lookup the manual pages referenced by crontab and print out the short descriptions of any found.  Equivalent to whatis crontab.
+   man -k printf - Search the short descriptions and manual page names for the keyword printf  as  regular expression. 
+
+tip: The table below shows the section numbers of the manual followed by the types of pages they contain.
+       1   Executable programs or shell commands
+       2   System calls (functions provided by the kernel)
+       3   Library calls (functions within program libraries)
+       4   Special files (usually found in /dev)
+       5   File formats and conventions eg /etc/passwd
+       6   Games
+       7   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
+       8   System administration commands (usually only for root)
+       9   Kernel routines [Non standard]
+(4)printenv - list all enviromental variables of the shell.
+(5)printenv var , forexample printenv SHELL -> /bin/shell.
+(6)set -list all shell variables
+	alt + b -go backerokd
+	alt + f -go forward
+	home -go to the beginning
+	end -go to the end
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------【bash buildin command】--------------------------------------------------------------------
+(1)enable [-a] [-dnps] [-f filename] [name ...] - Enable and disable builtin shell commands. 
+(2)export [-fn] [name[=word]] ... - The  supplied  names  are  marked for automatic export to the environment of subsequently executed commands.  If the -f option is given, the names 	refer to functions.
+(3)alias [-p] [name[=value] ...] - Alias  with  no  arguments  or  with  the  -p  option prints the list of aliases in the form alias name=value on standard output.  When arguments are supplied, 
+	an alias is  defined  for  each  name whose  value  is  given. 
+(4)unalias [-a] [name ...] - Remove each name from the list of defined aliases.  If -a is supplied, all alias  definitions  are removed.
+(5)time [options] command [arguments...] - The  time command runs the specified program command with the given arguments.  When command finishes, time writes a message to standarderror giving 
+	timing statistics about this program run.
+	-o FILE, --output=FILE  Do not send the results to stderr, but overwrite the specified file.
+    -a, --append  (Used together with -o.) Do not overwrite but append.
+(6)source filename [arguments] - Read  and execute commands from filename in the current shell environment and return the exit status of the last command executed from filename.  If filename 
+	does not contain a slash, file names in PATH are used to find the directory containing filename.  The file  searched  for in PATH need not be executable.
+(7)declare [-aAfFgilrtux] [-p] [name[=value] ...]
+   typeset [-aAfFgilrtux] [-p] [name[=value] ...] - Declare variables and/or give them attributes. 
+      -a     Each name is an indexed array variable.
+      -A     Each name is an associative array variable.
+      -i     The variable is treated as an integer.
+      -l     When the variable is assigned a value, all upper-case characters are converted to lower-case.
+      -r     Make names readonly.
+      -u     When the variable is assigned a value, all lower-case characters are converted to upper-case.
+      -x     Mark names for export to subsequent commands via the environment.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------【system Information & directory tools】---------------------------------------------------------
+software information:
+	(1)hostnamectl [OPTIONS...] {COMMAND} - may be used to query and change the system hostname and related settings.
+	(2)hostname - show or set the system's host name,Hostname is used to display the system's DNS name, and to display or set  its  hostname  or NIS domain name.
+	(3)domainname - show or set the system's NIS/YP domain name
+	(4)nisdomainname - show or set the system's NIS/YP domain name
+	(5)dnsdomainname - show the system's DNS domain name
+	(6)uname [OPTION]... - print system information.
+	(7)uptime [options] - Tell how long the system has been running.
+	(8)free [options] - Display amount of free and used memory in the system.
+hardware information:
+	(9)lscpu - display information about the CPU architecture.
+	(10)lsblk - list block devices.
+
+(11)whoami - print effective userid.
+(12)who - show who is logged on.
+(13)w - Show who is logged on and what they are doing.
+(14)last - show a listing of last logged in users
+
+date & time:
+	(15)timedatectl [OPTIONS...] {COMMAND} - Control the system time and date.
+		timedatectl list-timezones: List available time zones, one per line.
+		timedatectl set-timezone [TIMEZONE]: Set the system time zone to the specified value. 
+		timedatectl set-ntp [BOOL]: Takes a boolean argument. Controls whether network time synchronization is active and enabled (if available).
+		timedatectl  set-time [TIME]: Set the system clock to the specified time. 
+	(16)date [OPTION]... [+FORMAT] - print or set the system date and time.
+		date -s 2018-7-1 12:00:00   set time described by STRING.
+		date -u:  print or set Coordinated Universal Time (UTC)
+	(17)cal, ncal — displays a calendar and the date of Easter.
+		cal -m month: Display the specified month.
+		cal -y： Display a calendar for the specified year. 
+		cal -3: Display the previous, current and next month surrounding today.
+
+directory tool:
+	  (18)cat [OPTION]... [FILE]... -  concatenate files and print on the standard output.
+	  (19)tac [OPTION]... [FILE]... - concatenate and print files in reverse.
+	  (20)more [options] file... - more  is  a  filter for paging through text one screenful at a time. 
+	  (21)less - opposite of more.
+	  (22)head [OPTION]... [FILE]... - output the first part of files.
+	  (23)tail [OPTION]... [FILE]... - output the last part of files
+	  (24)wc [OPTION]... [FILE]... - print newline, word, and byte counts for each file.
+	 
+tar - an archiving utility.
+	(25)tar -c(--create) [-f ARCHIVE] [OPTIONS] [FILE...] : Create a new archive. 
+	(26)tar -t(--list) [-f ARCHIVE] [OPTIONS] [MEMBER...] : List the contents of an archive. 
+	(27)tar -x(--extract) [-f ARCHIVE] [OPTIONS] [MEMBER...] :  Extract files from an archive. 
+	(28)tar [--gzip --bzip2 --zx] -c(--create) [-f ARCHIVE] [OPTIONS] [FILE...] :   Compression options.
+ 
+(29)locate [OPTION]... PATTERN.. - find files by name.(search in DB)
+(30)find [-H] [-L] [-P] [-D debugopts] [-Olevel] [starting-point...] [expression] - search for files in a directory hierarchy.(search in filesystem)
+  	find / -name '*systemd*' : Base of file name.
+  	find / -group sy -name '*systemd*' : File belongs to group gname.
+  	find / -size +3M -group sy -name '*systemd*' : File uses n units of space, rounding up, The  +  and  - prefixes signify greater than and less than.
+  	find / -t f -group sy -name '*systemd*' :  File is of type:
+								 		  		              b      block (buffered) special
+												              c      character (unbuffered) special
+												              d      directory
+												              p      named pipe (FIFO)
+												              f      regular file
+												              l      symbolic link
+												              s      socket
+												              D      door (Solaris)
+(31)which - locate a command. which  returns  the  pathnames  of the files (or links) which would be executed in the current environment.
+(32)ldd - print shared object dependencies. ldd  prints  the  shared objects (shared libraries) required by each program or shared object specified on the command line.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------【user and group managment】----------------------------------------------------------------
+(1)useradd [options] LOGIN - create a new user or update default new user information.
+  -b -- create, --base-dir BASE_DIR       base directory for the home directory of the new account
+  -c, --comment COMMENT         GECOS field of the new account
+  -d, --home-dir HOME_DIR       home directory of the new account
+  -D, --defaults                print or change default useradd configuration
+  -e, --expiredate EXPIRE_DATE  expiration date of the new account
+  -f, --inactive INACTIVE       password inactivity period of the new account
+  -g, --gid GROUP               name or ID of the primary group of the new account
+  -G, --groups GROUPS           list of supplementary groups of the new account
+  -k, --skel SKEL_DIR           use this alternative skeleton directory
+  -K, --key KEY=VALUE           override /etc/login.defs defaults 
+  -l, --no-log-init             do not add the user to the lastlog and faillog databases
+  -m, --create-home             create the user's home directory
+  -M, --no-create-home          do not create the user's home directory
+  -N, --no-user-group           do not create a group with the same name as  the user
+  -o, --non-unique              allow to create users with duplicate (non-unique) UID
+  -p, --password PASSWORD       encrypted password of the new account
+  -r, --system                  create a system account
+  -R, --root CHROOT_DIR         directory to chroot into
+  -s, --shell SHELL             login shell of the new account
+  -u, --uid UID                 user ID of the new account
+  -U, --user-group              create a group with the same name as the user
+  -Z, --selinux-user SEUSER     use a specific SEUSER for the SELinux user mapping
+
+(2)usermod [options] LOGIN - modify a user account.
+  -c, --comment COMMENT         new value of the GECOS field
+  -d, --home HOME_DIR           new home directory for the user account
+  -e, --expiredate EXPIRE_DATE  set account expiration date to EXPIRE_DATE
+  -f, --inactive INACTIVE       set password inactive after expiration to INACTIVE
+  -g, --gid GROUP               force use GROUP as new primary group
+  -G, --groups GROUPS           new list of supplementary GROUPS
+  -a, --append                  append the user to the supplemental GROUPS,mentioned by the -G option without removing him/her from other groups
+  -h, --help                    display this help message and exit
+  -l, --login NEW_LOGIN         new value of the login name
+  -L, --lock                    lock the user account
+  -m, --move-home               move contents of the home directory to the new location (use only with -d)
+  -o, --non-unique              allow using duplicate (non-unique) UID
+  -p, --password PASSWORD       use encrypted password for the new password
+  -R, --root CHROOT_DIR         directory to chroot into
+  -s, --shell SHELL             new login shell for the user account
+  -u, --uid UID                 new UID for the user account
+  -U, --unlock                  unlock the user account
+  -v, --add-subuids FIRST-LAST  add range of subordinate uids
+  -V, --del-subuids FIRST-LAST  remove range of subordinate uids
+  -w, --add-subgids FIRST-LAST  add range of subordinate gids
+  -W, --del-subgids FIRST-LAST  remove range of subordinate gids
+  -Z, --selinux-user SEUSER     new SELinux user mapping for the user account
+
+(3)passwd [options] [LOGIN] - change user password.
+  -a, --all                     report password status on all accounts
+  -d, --delete                  delete the password for the named account
+  -e, --expire                  force expire the password for the named account
+  -h, --help                    display this help message and exit
+  -k, --keep-tokens             change password only if expired
+  -i, --inactive INACTIVE       set password inactive after expiration to INACTIVE
+  -l, --lock                    lock the password of the named account
+  -n, --mindays MIN_DAYS        set minimum number of days before password change to MIN_DAYS
+  -q, --quiet                   quiet mode
+  -r, --repository REPOSITORY   change password in REPOSITORY repository
+  -R, --root CHROOT_DIR         directory to chroot into
+  -S, --status                  report password status on the named account
+  -u, --unlock                  unlock the password of the named account
+  -w, --warndays WARN_DAYS      set expiration warning days to WARN_DAYS
+  -x, --maxdays MAX_DAYS        set maximum number of days before password change to MAX_DAYS
+
+(4)userdel [options] LOGIN - delete a user account and related files.
+  -f, --force              		force removal of files,even if not owned by user
+  -h, --help                    display this help message and exit
+  -r, --remove                  remove home directory and mail spool
+  -R, --root CHROOT_DIR         directory to chroot into
+  -Z, --selinux-user            remove any SELinux user mapping for the user
+
+(4)su [options] [username] - change user ID or become superuser,The su command is used to become another user during a login session.
+(5)chage [options] LOGIN - change user password expiry information.
+  -d, --lastday LAST_DAY        set date of last password change to LAST_DAY
+  -E, --expiredate EXPIRE_DATE  set account expiration date to EXPIRE_DATE
+  -h, --help                    display this help message and exit
+  -I, --inactive INACTIVE       set password inactive after expiration to INACTIVE
+  -l, --list                    show account aging information
+  -m, --mindays MIN_DAYS        set minimum number of days before password change to MIN_DAYS
+  -M, --maxdays MAX_DAYS        set maximim number of days before password change to MAX_DAYS
+  -R, --root CHROOT_DIR         directory to chroot into
+  -W, --warndays WARN_DAYS      set expiration warning days to WARN_DAYS
+
+(5)groupadd [options] group  - create a new group.
+  -f, --force                   exit successfully if the group already exists,and cancel -g if the GID is already used
+  -g, --gid GID                 use GID for the new group
+  -h, --help                    display this help message and exit
+  -K, --key KEY=VALUE           override /etc/login.defs defaults
+  -o, --non-unique              allow to create groups with duplicate(non-unique) GID
+  -p, --password PASSWORD       use this encrypted password for the new group
+  -r, --system                  create a system account
+  -R, --root CHROOT_DIR         directory to chroot into
+
+(6)groupmod [options] GROUP - modify a group definition on the system.
+  -g, --gid GID                 change the group ID to GID
+  -h, --help                    display this help message and exit
+  -n, --new-name NEW_GROUP      change the name to NEW_GROUP
+  -o, --non-unique              allow to use a duplicate (non-unique) GID
+  -p, --password PASSWORD       change the password to this (encrypted) PASSWORD
+  -R, --root CHROOT_DIR         directory to chroot into
+
+(7)gpasswd [option] group - administer /etc/group and /etc/gshadow.
+  -a, --add USER                add USER to GROUP
+  -d, --delete USER             remove USER from GROUP
+  -h, --help                    display this help message and exit
+  -Q, --root CHROOT_DIR         directory to chroot into
+  -r, --remove-password         remove the GROUP's password
+  -R, --restrict                restrict access to GROUP to its members
+  -M, --members USER,...        set the list of members of GROUP
+  -A, --administrators ADMIN,...set the list of administrators for GROUP
+
+(8)groupdel [options] GROUP - delete a group.
+  -h, --help                    display this help message and exit
+  -R, --root CHROOT_DIR         directory to chroot into
+  -f, --force                   delete group even if it is the primary group of a user
+
+(9)newgrp [-] [group] - log in to a new group,The newgrp command is used to change the current group ID during a login session.
+
+(10)id [OPTION]... [USER] - print real and effective user and group IDs.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------【file and permissions】---------------------------------------------------------------------
+(1)file [OPTION...] [FILE...] - Determine type of FILEs.
+(2)stat [OPTION]... FILE - Display file or file system status.
+(3)touch [OPTION]... FILE... - change file timestamps,A FILE argument that does not exist is created empty.
+(4)mkdir [OPTION]... DIRECTORY... - make directories.
+(5)cp [OPTION]... [-T] SOURCE DEST
+   or:  cp [OPTION]... SOURCE... DIRECTORY
+   or:  cp [OPTION]... -t DIRECTORY SOURCE... - Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.
+   -R, -r, --recursive          copy directories recursively.
+   -n, --no-clobber             do not overwrite an existing file (overrides a previous -i option).
+   -t, --target-directory=DIRECTORY  copy all SOURCE arguments into DIRECTORY.
+(6)mv [OPTION]... [-T] SOURCE DEST
+   or:  mv [OPTION]... SOURCE... DIRECTORY
+   or:  mv [OPTION]... -t DIRECTORY SOURCE... - Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.
+   -n, --no-clobber             do not overwrite an existing file.
+   -t, --target-directory=DIRECTORY  move all SOURCE arguments into DIRECTORY.
+(7)rmdir [OPTION]... DIRECTORY... - Remove the DIRECTORY(ies), if they are empty.
+   -p, --parents   remove DIRECTORY and its ancestors; e.g., 'rmdir -p a/b/c' is similar to 'rmdir a/b/c a/b a'
+(8)rm [OPTION]... [FILE]... - Remove (unlink) the FILE(s).
+   -r, -R, --recursive   remove directories and their contents recursively.
+   -d, --dir             remove empty directories.
+   -i                    prompt before every removal.
+(9)ln - create links between files.
+   ln [OPTION]... [-T] TARGET LINK_NAME  - create a  link to TARGET with the name LINK_NAME.
+   ln [OPTION]... TARGET                 - create a link to TARGET in the crrent directory.
+   ln [OPTION]... TARGET... DIRECTORY or
+   ln [OPTION]... -t DIRECTORY TARGET... - create links to each TARGET in DIRECTORY.
+   -s                     make symbolic link instead of hard links.
+(10)chown - change file owner and group.
+	chown [OPTION]... [OWNER][:[GROUP]] FILE... - Change  the  owner  and/or group of each FILE to OWNER and/or GROUP. 
+	chown [OPTION]... --reference=RFILE FILE... - change the owner and group of each FILE to those of RFILE.
+	-R, --recursive        operate on files and directories recursively
+(11)chmod - change file mode bits.
+    chmod [OPTION]... MODE[,MODE]... FILE...
+    chmod [OPTION]... OCTAL-MODE FILE...
+    chmod [OPTION]... --reference=RFILE FILE...
+    -R, --recursive        change files and directories recursively.
+    chmod 750 FILE
+    chmod u=rwx,g=rw,o= FILE
+(12)umask [-p] [-S] [mode] - Display or set file mode mask, Sets the user file-creation mask to MODE. If MODE is omitted, printsthe current value of the mask.
+(13)getfacl - get file access control lists.
+    getfacl [-aceEsRLPtpndvh] file ...
+    getfacl [-aceEsRLPtpndvh] -
+    -s, --skip-base            Skip files that only have the base ACL entries (owner, group, others).
+    -R, --recursive            List the ACLs of all files and directories recursively.
+(14)setfacl - set file access control lists.
+    setfacl [-bkndRLPvh] [{-m|-x} acl_spec] [{-M|-X} acl_file] file ...
+    -m, --modify=acl        modify the current ACL(s) of file(s)   setfacl -m user:USER:PERMISSION(rwx) FILE
+    -x, --remove=acl        remove entries from the ACL(s) of file(s)  setfacl -x group:GROUP FILE
+     -d, --default           operations apply to the default ACL   setfacl -d -m u:USER:PERMISSION,g:GROUP:PERMISSION FILE / setfacl -d -x u:USER:PERMISSION,g:GROUP:PERMISSION FILE
+    -k, --remove-default    remove the default ACL
+    -b, --remove-all        remove all extended ACL entries
+    -R, --recursive         recurse into subdirectories
+    -M, --modify-file=file  read ACL entries to modify from file
+    setfacl -m mask::PERMISSON FILE  change the acl mask of File 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------Network Configuration------------------------------------------------------------------
+（1）nmcli (network manager command line interface)
+	 (a)nm-connection-editor - network connection editor for NetworkManager.(GTK‐based application to add, remove, and modify network connections stored by NetworkManager.)
+     (b)nmcli [OPTIONS...] {help | general | networking | radio | connection | device | agent | monitor} [COMMAND] [ARGUMENTS...] - command-line tool for controlling NetworkManager.
+        ● DEVICE MANAGEMENT - nmcli device {status | show | set | connect | reapply | modify | disconnect | delete | monitor | wifi | lldp} [ARGUMENTS...] - Show and manage network interfaces. device is network hardware on computer, such as ethernet port, wifi adapter, cellular modem, etc.
+        	       status Print - status of devices.（default command）
+        	       show [ifname] - Show detailed information about devices. Without an argument, all devices are examined. 
+        	       connect ifname - Connect the device. NetworkManager will try to find a suitable connection that will be activated. It will also consider connections that are not set to auto connect.
+
+
+        ● CONNECTION MANAGEMENT - nmcli connection {show | up | down | modify | add | edit | clone | delete | monitor | reload | load | import | export} [ARGUMENTS...] - NetworkManager stores all network configuration as "connections", A connection is "active" when a device uses,that connection's configuration to create or connect to a network.
+         		   show [--active] [id | uuid | path | apath] ID... - Show details for specified connections, or List in-memory and on-disk connection profiles without Id specify. 
+         		   up [id | uuid | path] ID [ifname ifname] [ap BSSID] [passwd-file file] - Activate a connection.
+         		   down [id | uuid | path | apath] ID... - Deactivate a connection from a device without preventing the device from further auto-activation. 
+      			   edit {[id | uuid | path] ID | [type type] [con-name name] } - Edit an existing connection or add a new one, using an interactive editor.
+
+        ● GENERAL COMMANDS - nmcli general {status | hostname | permissions | logging} [ARGUMENTS...] - Use this command to show NetworkManager status and permissions. 
+				   hostname [hostname] - Get and change system hostname. 
+		● NETWORKING CONTROL - nmcli networking {on | off | connectivity} [ARGUMENTS...] - Query NetworkManager networking status, enable and disable networking.
+				   on, off - Enable or disable networking control by NetworkManager. 
+(2)hostnamectl [OPTIONS...] {COMMAND} - may be used to query and change the system hostname and related settings.
+		set-hostname NAME - Set the system hostname to NAME.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------process Management--------------------------------------------------------------------
+【process】
+	ps - report a snapshot of the current processes.
+	    To see every process on the system using standard syntax: ps -e
+	    To print a process tree: ps -ejH
+	    Select by process ID: to ps -p 1
+	    Select by real user ID (RUID) or name: ps -U sy == ps --user sy
+	    User-defined format: ps --format pid,user,%cpu == ps -o pid,user,%cpu，%mem
+
+	top - provides a dynamic real-time view of a running system.
+
+	kill [options] <pid> [...] - send a signal to a process
+		List available signals: kill -l
+		Specify the signal to be sent : kill SIGTERM 424
+
+	nice [OPTION] [COMMAND [ARG]...] - run a program with a specify scheduling priority
+		Add integer N to the niceness: nice --2 top
+
+	renice [-n] priority [-g|-p|-u] identifier - alter priority of running processes
+		 Specify  the scheduling priority to be used for the process: renice 5 $(pidof top)
+
+	watch [options] command  - execute a program periodically, showing output fullscreen 
+		Specify  update interval ： watch -n 1 ps
+		Highlight  the  differences  between  successive updates : watch -d -n 1 ps
+
+	tips:
+		ctrl + z : bring the current running job to background and stop it.
+		ctrl + c : exit current running job.
+		bg : bring the stopped job in background to running.
+		fg : bring the job to foreground from background.
+
+
+【job scheduling】
+	One time job scheduling:
+		at [-V] [-q queue] [-f file] [-mMlv] timespec...
+        at [-V] [-q queue] [-f file] [-mMkv] [-t time] - executes commands at a specified time.
+		atq [-V] [-q queue] - lists the user's pending jobs.
+		atrm [-V] job [job...] - deletes jobs, identified by their job number.
+		batch - executes commands when system load levels permit; in other words, when the load  aver‐
+               age drops below 0.8, or the value specified in the invocation of atd.
+
+	Reccuring jobs scheduling:
+ 		crontab - maintain crontab files for individual users
+   	    -e option is used to edit the current crontab using the editor specified by the VISUAL or EDITOR environment variables. 
+        -l option causes the current crontab to be displayed on standard output.
+	    -r option causes the current crontab to be removed.
+
+
+【systemd manager】
+	● systemd is a system and service manager for Linux operating systems. When run as first process on boot (as PID 1), it acts as init system that brings up and maintains userspace services. systemd provides a dependency system between various entities called "units" of 12 different types.
+	1. Service units.
+	2. Socket units.
+	3. Target units.
+	4. Device units.
+	5. Mount units.
+	6. Automount units.
+	7. Snapshot units.
+	8. Timer units.
+	9. Swap units.
+	10. Path units.
+	11. Slice units.
+	12. Scope units.       
+
+	systemctl [OPTIONS...] COMMAND [NAME...] - Control the systemd system and service manager.
+		Unit File Commands
+			(1)list-unit-files [PATTERN...](systemctl list-unit-fiels --type=service)  - List installed unit files and their enablement state.
+			(2)enable NAME... - Enable one or more unit files or unit file instances,  Note that this does not have the effect of also starting any of the units
+           		being enabled. If this is desired, either --now should be used together with this command, or an additional start command must be invoked for the unit.  
+           	(3)disable NAME... - Disables one or more units. 
+           	(4)preset NAME... - Reset the enable/disable status one or more unit files.
+           	(5)preset-all - Resets all installed unit files to the defaults configured in the preset policy file.
+
+		Unit Commands
+			(1)list-units [PATTERN...](systemctl list-units --type=service)	Unit Commands,List units that systemd currently has in memory(running). 
+			(2)status [PATTERN...|PID...]] - Show terse runtime status information about one or more units.
+			(3)start PATTERN... - Start (activate) one or more units specified on the command line.
+			(4)stop PATTERN... - Stop (deactivate) one or more units specified on the command line.
+			(5)reload PATTERN... - Asks all units listed on the command line to reload their configuration(ervice-specific configuration),if you want systemd to reload the configuration file of a unit, use the daemon-reload command. for the example case of Apache, this will reload Apache's httpd.conf in the web server, not the apache.service systemd unit file.
+			(6)restart PATTERN... Restart one or more units specified on the command line.
+			(7)list-sockets [PATTERN...] - List socket units ordered by listening address. 
+			(8) kill PATTERN... - Send a signal to one or more processes of the unit. Use --kill-who= to select which process to kill. Use --signal= to select the signal to send.
+
+		Job Commands
+			(1)list-jobs [PATTERN...] - List jobs that are in progress. 
+			(2)cancel JOB... - Cancel one or more jobs specified on the command line by their numeric job IDs. 
+
+		System Commands
+			(1)poweroff - Shut down and power-off the system.
+			(2)reboot [arg] - Shut down and reboot the system.
+			(3)suspend - Suspend the system.  
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------Package Managers and Repositories------------------------------------------------------------------------------
+【Centos】
+yum [options] [command] [package ...] - yum(Yellowdog Updater Modified)  is  an  interactive, rpm based, package manager. 
+(1)yum search string1 [string2] [...] - find packages when you know something about the package but aren't sure of it's name.
+(2)yum info [...] - list a description and summary information about available packages.
+(3)yum deplist package1 [package2] [...] - Produces a list of all dependencies and what packages provide those dependencies for the given  packages.
+(4)yum  provides | whatprovides feature1 [feature2] [...] - find out which package provides some feature or file.
+(5)yum  install package1 [package2] [...] - install the latest version of a package or group  of  packages  while  ensuring  that  all dependencies  are  satisfied.  
+(6)yum list installed - list all installed pakages.
+(7)yum group [group command] ... - collects all the subcommands that act on groups together.
+	yum group  list - list the available groups from all yum repos.
+	yum group  install group - install all of the individual packages in a group, of the specified types.
+	yum group  remove group - remove all of the packages in a group.
+	yum group  info group - give the description and package list of a group.
+	yum group update group -  This will install packages in the group not already installed and upgrade existing packages.  
+(8)yum remove package - remove  the  specified packages from the system as well as removing any packages which depend on the package being removed.
+(9)yum check-update  - Check for available package updates.
+(10)yum update - Update a package or packages on your system
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------storage system--------------------------------------------------------------------------------------------
+(1)fdisk [-uc] [-b sectorsize] [-C cyls] [-H heads] [-S sects] device - fdisk is a menu-driven program for creation and manipulation of partition tables.It understands GPT (experimental for now), 
+	MBR, Sun, SGI and BSD partition tables. The device is usually /dev/sda, /dev/sdb or so.  A device name refers to the entire disk. The partition is a device name followed by a partition number. 
+	For example,/dev/sda1 is the first partition on the first hard disk in the system. 
+(2)mkfs [options] [-t type] [fs-options] device [size] - mkfs  is  used  to build a Linux filesystem on a device, usually a hard disk partition.  The device argument is either the device name (e.g.  
+	/dev/hda1, /dev/sdb2), or a regular file that shall contain the filesystem.  The size  argument is the number of blocks to be used for the filesystem.
+	mkfs.ext2/3/4 [overwrite options] device -  will apply many default options.
+(3)mount [-fnrsvw] [-t vfstype] [-o options] device dir - All files accessible in a Unix system are arranged in one big tree, the file hierarchy, rooted at /.  These files can be spread out over
+    several devices. The mount command serves to attach the filesystem found on some device to the big file tree. Conversely, the  umount(8) command will detach it again.
+(4)umount [-dflnrv] {dir|device}... - The  umount  command  detaches the file system(s) mentioned from the file hierarchy.  A file system is specified by giving the directory where it has been 
+	mounted.a file system cannot be unmounted when it is 'busy' - for example, when there are open files on it, or when some process has its working directory there, or when a swap file on it 
+	is in use. 
+(5)df [OPTION]... [FILE]... - df displays the amount of disk space available on the file system containing each file name argument.  If no file name is given, the space available on all currently 
+	mounted file systems is shown.
+	-h, --human-readable  - print sizes in human readable format (e.g., 1K 234M 2G)
+	-T, --print-type  - print file system type
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
